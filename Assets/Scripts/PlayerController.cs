@@ -4,6 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;  // Horizontal movement speed
     public float jumpForce = 10f; // Jump force
+    public BoxCollider2D groundCollider; // Ground check collider
     private Rigidbody2D rb;
     private bool isGrounded;
 
@@ -35,7 +36,6 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // Ground check
-        RaycastHit2D hit = Physics2D.BoxCast(transform.position, transform.localScale, 0, Vector2.down, 0.1f, LayerMask.GetMask("Tile"));
-        isGrounded = hit.collider != null;
+        isGrounded = groundCollider.IsTouchingLayers(LayerMask.GetMask("Tile"));
     }
 }
